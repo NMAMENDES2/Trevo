@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/NMAMENDES2/Trevo/api/models"
 	"github.com/NMAMENDES2/Trevo/db"
+	"github.com/NMAMENDES2/Trevo/pkg/response"
 )
 
 type UserHandler struct {
@@ -41,6 +41,5 @@ func (h *UserHandler) GetUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+	response.JSON(w, http.StatusOK, users)
 }
