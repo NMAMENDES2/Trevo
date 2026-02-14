@@ -3,6 +3,11 @@ CMD_DIR := cmd
 BIN_DIR := bin
 GO := go
 
+ifneq (,$(wildcard ./.env))
+    include .env
+    export
+endif
+
 MIGRATIONS_DIR=./db/migrations
 DB_URL=postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=$(DB_SSLMODE)
 
@@ -40,6 +45,7 @@ build:
 .PHONY: run
 run: build
 	./$(BIN_DIR)/$(APP_NAME)
+	air
 
 .PHONY: clean
 clean:
